@@ -33,9 +33,12 @@
         <a href="/manual-analysis" class="list-group-item list-group-item-action bg-light">Input Manual Analysis</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">SCO Metric Data</a>
         <form action="/upload" method="POST" enctype=multipart/form-data>
-        <button class="btn btn-info float-right" style="margin: 10px;">Upload File</button>
-      </form>
+       <!--- <a href="/upload" class="btn btn-info float-right" style="margin: 10px;" name="file">Upload File</a>--->
+        <input type="file" class="btn btn-info" style="width: 240px;" name="file"></input>
+        <button class="btn btn-info float-right" style="margin: 10px;">Upload</button>
+        </form>
       </div> 
+      
     </div>
     
     <!-- /#sidebar-wrapper -->
