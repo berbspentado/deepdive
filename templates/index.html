@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4" style="padding-top: 10%;"> 
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="text-align: center;">Log In</h3>
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <input type="username" class="form-control" id="username" aria-describedby="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-info float-right">Log In</button>
+                        <a href="/register" class="btn btn-primary float-right" style="margin-right: 5px;">Register</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>     
+</div>
+{% endblock %}
