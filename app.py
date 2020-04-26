@@ -2,7 +2,7 @@ from flask import Flask
 import os
 from .database import init_db
 from .config import Config
-import deepdive_web.models
+import deepdive.models
 
 def create_app():
     app = Flask(__name__)

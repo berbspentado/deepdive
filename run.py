@@ -1,5 +1,5 @@
 from .app import app
-import deepdive_web.views
+import deepdive.views
 
 
 if __name__ == '__main__':

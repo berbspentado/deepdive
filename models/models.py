@@ -1,4 +1,4 @@
-from deepdive_web.database import db
+from deepdive.database import db
 from datetime import datetime
 from flask_login import UserMixin
 from sqlalchemy import ForeignKey
