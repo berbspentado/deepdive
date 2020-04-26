@@ -18,7 +18,6 @@ def home():
 @app.route("/homepage")
 @login_required
 def homepage():
-    #numbers = ManualAnalysis.query.order_by(ManualAnalysis.id).order_by(ManualAnalysis.created_at.desc()).all()
     diags = ManualAnalysis.query.all()
     
     return render_template("content.html",diags=diags)        
@@ -83,6 +82,17 @@ def add_analysis():
 
         return redirect("/manual-analysis")
     return redirect("/homepage")
+
+@app.route("/view")
+def view():
+    
+    diagfile = "heeeey"
+    
+    return render_template("content.html",diagfile=diagfile)
+
+
+
+
 
 @app.route("/upload",methods=["GET","POST"])
 def upload_file():
