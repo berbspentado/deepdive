@@ -19,7 +19,6 @@ def home():
 @login_required
 def homepage():
     diags = ManualAnalysis.query.all()
-    
     return render_template("content.html",diags=diags)        
 
 @app.route("/login",methods=["POST","GET"])
@@ -83,12 +82,16 @@ def add_analysis():
         return redirect("/manual-analysis")
     return redirect("/homepage")
 
-@app.route("/view")
-def view():
-    
-    diagfile = "heeeey"
-    
-    return render_template("content.html",diagfile=diagfile)
+@app.route("/edit-analysis/<int:id>",methods=["GET","POST"])
+def edit_analyze(id):
+    diag = ManualAnalysis.query.get(id)
+    return render_template("edit_manual_analysis.html",diag=diag)
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,15 @@
 {% extends "homepagebase.html" %}
 {% block title %} Homepage {% endblock %}
-
-
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        #label { 
+          color:gray; 
+          font-weight: bolder ;
+          
+          }
+    </style>
+{% endblock %}
 {% block content %}
 <table class="table table-dark" style="font-size:x-small;margin-top: 10px;" >
   <thead>
@@ -26,14 +34,15 @@
     <td>{{diag["category"]}}</td>
     <td>{{diag["rse_state"]}}</td>
     <td>
-      <a href="/view" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-eye"></i></button>
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myoutput{{diag.id}}"><i class="fas fa-eye"></i></button>
     </td>
     <td>
-      <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-edit"></i></a>
-    </td> 
+      <a type="button" class="btn btn-primary btn-sm" href="/edit-analysis/{{diag.id}}"><i class="far fa-edit"></i></a>
+    </td>
     <td>
-      <a type="button" class="btn btn-primary btn-sm"><i class="far fa-trash-alt"></i></a>
-    </td> 
+      <a href="/view" type="button" class="btn btn-primary btn-sm"><i class="far fa-trash-alt"></i></a>
+     
+    </td>     
       
     </tr>
     
@@ -41,41 +50,88 @@
   </tbody>
 </table>
 
-{{diagfile}}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+{%for diag in diags%}
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myoutput{{diag.id}}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      ...
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12" style="padding: 5%;"> 
+                <div class="card">
+                    <div class="card-body">
+                        
+                            <div class="form-group">
+                              <label for="diagfilename" id="label">Diag File Name</label><br>
+                              <span>{{diag.diagfile}}</span>
+                            </div>
+                            <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="build" id="label">Build Package</label><br>
+                                <span>{{diag.build_package}}</span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="adk" id="label">ADK</label><br>
+                                <span>{{diag.adk}}</span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="problemdate" id="label">Problem Date</label><br>
+                                <span>{{diag.date_time}}</span>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="analysis" id="label">Analysis</label><br>
+                              <span>{{diag.analysis}}</span>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="jira" id="label">Jira</label><br>
+                                  <span>{{diag.jira}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="Category" id="label">Category</label><br>
+                                  <span>{{diag.category}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="deviceerror" id="label">Device Error</label><br>
+                                    <span>{{diag.device_error}}</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-3">
+                                <label for="gsa" id="label">GSA</label><br>
+                                <span>{{diag.gsa}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label for="hardware" id="label">HW Type</label><br>
+                                <span>{{diag.hwtype}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                  <label for="motherboard" id="label">Motherboard</label><br>
+                                <span>{{diag.motherboard}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label for="dbmgr" id="label">DBMGR</label>
+                                <span>{{diag.dbmanager}}</span>
+                              </div>
+                              <div class="form-group col-md-3">
+                                <label for="rsestate" id="label">RSE State</label><br>
+                                <span>{{diag.rse_state}}</span>
+                              </div>
+                            </div>
+                            
+                        
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>    
     </div>
   </div>
 </div>
 
 
-<!--<tr>
-  <th scope="row">1</th>
-  <td>{{diags}}</td>
-  <td>Otto</td>
-  <td>@mdo</td>
-</tr>
-<tr>
-  <th scope="row">2</th>
-  <td>Jacob</td>
-  <td>Thornton</td>
-  <td>@fat</td>
-</tr>
-<tr>
-  <th scope="row">3</th>
-  <td>Larry</td>
-  <td>the Bird</td>
-  <td>@twitter</td>
-</tr>
+{%endfor%}
 
-
-{%for diag in diags%}
-    <tr>
-    <td>{{diag["diagfile"]}}</td>
-    </tr>
-    {%endfor%}
--->
 {% endblock %}
 

@@ -3,64 +3,66 @@
 {%block title%}Manual Analysis{%endblock%}
 
 {%block content%}
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12" style="padding-top: 10%;"> 
             <div class="card">
                 <div class="card-body">
                     <form action="/manual-file" method="POST">
+                        
                         <div class="form-group">
                           <label for="diagfilename">Diag File Name</label>
-                          <input type="text" class="form-control" id="diagfilename" placeholder="\\whqtransfer\WMSpace\deep_dive\ASDADDStores\" name="diags" required>
+                          <input type="text" class="form-control" id="diagfilename" name="diags" value={{diag.diagfile}}>
                         </div>
                         <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="build">Build Package</label>
-                            <input type="build" class="form-control" id="build" name="build">
+                            <input type="build" class="form-control" id="build" name="build" value={{diag.build_package}}>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="adk">ADK</label>
-                            <input type="adk" class="form-control" id="adk" name="adk">
+                            <input type="adk" class="form-control" id="adk" name="adk" value={{diag.adk}}>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="problemdate">Problem Date</label>
-                            <input type="datetime-local" id="meeting-time"name="time" value="yyyy-dd-mmTmm:ss" min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;">
+                            <input type="datetime-local" id="meeting-time"name="time" value="yyyy-dd-mmTmm:ss" min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;" value="{{diag.date_time}}">
                         </div>
                         </div>
                         <div class="form-group">
                           <label for="analysis">Analysis</label>
-                          <textarea class="form-control" id="analysis" rows="3" name="analysis" required></textarea>
+                          <textarea class="form-control" id="analysis" rows="3" name="analysis" value="{{diag.analysis}}"></textarea>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row"> 
                             <div class="form-group col-md-4">
                               <label for="jira">Jira</label>
-                              <input type="text" class="form-control" id="jira" name="jira">
+                              <input type="text" class="form-control" id="jira" name="jira" value="{{diag.jira}}">
                             </div>
                             <div class="form-group col-md-4">
                               <label for="Category">Category</label>
-                              <input type="text" class="form-control" id="category" name="category">
+                              <input type="text" class="form-control" id="category" name="category"  value="{{diag.category}}">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="deviceerror">Device Error</label>
-                                <input type="text" class="form-control" id="deviceerror" name="deviceerror">
+                                <input type="text" class="form-control" id="deviceerror" name="deviceerror"  value="{{diag.device_error}}">
                             </div>
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-3">
                             <label for="gsa">GSA</label>
-                            <input type="text" class="form-control" id="gsa" name="gsa">
+                            <input type="text" class="form-control" id="gsa" name="gsa"  value="{{diag.gsa}}">
                           </div>
                           <div class="form-group col-md-2">
                             <label for="hardware">Hardware Type</label>
-                            <input type="text" class="form-control" id="hardware" name="hardware">
+                            <input type="text" class="form-control" id="hardware" name="hardware"  value="{{diag.hwtype}}">
                           </div>
                           <div class="form-group col-md-2">
                               <label for="motherboard">Motherboard</label>
-                              <input type="text" class="form-control" id="motherboard" name="motherboard">
+                              <input type="text" class="form-control" id="motherboard" name="motherboard"  value="{{diag.motherboard}}">
                           </div>
                           <div class="form-group col-md-2">
                             <label for="dbmgr">DBMGR</label>
-                            <select class="form-control" id="dbmgr" name="dbmgr">
+                            <select class="form-control" id="dbmgr" name="dbmgr"  value="{{diag.dbmanager}}" >
                             <option>Online </option>
                             <option>Offline </option>
                             </select>
@@ -81,11 +83,13 @@
                           </div>
                         </div>
                         <button class="btn btn-info float-right">Update Manual File</button>
+                        
                     </form>
                 </div>
             </div>
         </div>
     </div>     
 </div>
+
 
 {%endblock%}
