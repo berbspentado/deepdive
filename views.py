@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request,redirect,jsonify
+from datetime import datetime
 import flask_excel as excel
 from .app import app
 from .database import db
@@ -66,6 +67,7 @@ def add_analysis():
         vbuild = request.form["build"]
         vadk=request.form["adk"]
         vproblemDate=request.form["time"]
+        #vproblemDate=datetime.strptime(request.form["time"],'%Y-%m-%d %Z %H:%M')
         vanalysis = request.form["analysis"]
         vjira=request.form["jira"]
         vcategory=request.form["category"]
@@ -84,11 +86,36 @@ def add_analysis():
 
 @app.route("/edit-analysis/<int:id>",methods=["GET","POST"])
 def edit_analyze(id):
-    diag = ManualAnalysis.query.get(id)
+    diag = ManualAnalysis.query.get(id)    
+    if request.method == "POST":
+        diag.diagfile= request.form["diags"]
+        diag.rse_state=request.form["rse"]
+        diag.build_package = request.form["build"]
+        diag.adk=request.form["adk"]
+        diag.analysis = request.form["analysis"]
+        diag.jira=request.form["jira"]
+        diag.category=request.form["category"]
+        diag.device_error=request.form["deviceerror"]
+        diag.gsa = request.form["gsa"]
+        diag.hwtype = request.form["hardware"]
+        diag.motherboard=request.form["motherboard"]
+        diag.dbmanager = request.form["dbmgr"]
+       
+        db.session.commit()
+
+        return redirect("/homepage")
+
+
     return render_template("edit_manual_analysis.html",diag=diag)
 
 
+@app.route("/delete/<int:id>",methods=["GET","POST"])
+def delete(id):
+    diag = ManualAnalysis.query.get(id)
+    db.session.delete(diag)
+    db.session.commit()
 
+    return redirect("/homepage")
 
 
 

@@ -1,7 +1,16 @@
 {%extends "homepagebase.html"%}
 
 {%block title%}Manual Analysis{%endblock%}
-
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        #label { 
+          color:gray; 
+          font-weight: bolder ;
+          
+          }
+    </style>
+{% endblock %}
 {%block content%}
 
 <div class="container">
@@ -9,76 +18,77 @@
         <div class="col-md-12" style="padding-top: 10%;"> 
             <div class="card">
                 <div class="card-body">
-                    <form action="/manual-file" method="POST">
+                    <form action="/edit-analysis/{{diag.id}}" method="POST">
                         
                         <div class="form-group">
-                          <label for="diagfilename">Diag File Name</label>
+                          <label for="diagfilename" id="label">Diag File Name</label>
                           <input type="text" class="form-control" id="diagfilename" name="diags" value={{diag.diagfile}}>
                         </div>
                         <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="build">Build Package</label>
+                            <label for="build" id="label">Build Package</label>
                             <input type="build" class="form-control" id="build" name="build" value={{diag.build_package}}>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="adk">ADK</label>
+                            <label for="adk" id="label">ADK</label>
                             <input type="adk" class="form-control" id="adk" name="adk" value={{diag.adk}}>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="problemdate">Problem Date</label>
-                            <input type="datetime-local" id="meeting-time"name="time" value="yyyy-dd-mmTmm:ss" min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;" value="{{diag.date_time}}">
+                            <label for="problemdate" id="label">Problem Date</label><br>
+                            <!--<input type="datetime-local" id="meeting-time" name="time" value={{diag.date_time}} min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;">--->
+                            {{diag.date_time}}
                         </div>
                         </div>
                         <div class="form-group">
-                          <label for="analysis">Analysis</label>
-                          <textarea class="form-control" id="analysis" rows="3" name="analysis" value="{{diag.analysis}}"></textarea>
+                          <label for="analysis" id="label">Analysis</label>
+                          <textarea class="form-control" id="analysis" rows="3" name="analysis">{{diag.analysis}}</textarea>
                         </div>
                         <div class="form-row"> 
                             <div class="form-group col-md-4">
-                              <label for="jira">Jira</label>
+                              <label for="jira" id="label">Jira</label>
                               <input type="text" class="form-control" id="jira" name="jira" value="{{diag.jira}}">
                             </div>
                             <div class="form-group col-md-4">
-                              <label for="Category">Category</label>
+                              <label for="Category" id="label">Category</label>
                               <input type="text" class="form-control" id="category" name="category"  value="{{diag.category}}">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="deviceerror">Device Error</label>
+                                <label for="deviceerror" id="label"> Device Error</label>
                                 <input type="text" class="form-control" id="deviceerror" name="deviceerror"  value="{{diag.device_error}}">
                             </div>
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-3">
-                            <label for="gsa">GSA</label>
+                            <label for="gsa" id="label">GSA</label>
                             <input type="text" class="form-control" id="gsa" name="gsa"  value="{{diag.gsa}}">
                           </div>
                           <div class="form-group col-md-2">
-                            <label for="hardware">Hardware Type</label>
+                            <label for="hardware" id="label">Hardware Type</label>
                             <input type="text" class="form-control" id="hardware" name="hardware"  value="{{diag.hwtype}}">
                           </div>
                           <div class="form-group col-md-2">
-                              <label for="motherboard">Motherboard</label>
+                              <label for="motherboard" id="label">Motherboard</label>
                               <input type="text" class="form-control" id="motherboard" name="motherboard"  value="{{diag.motherboard}}">
                           </div>
                           <div class="form-group col-md-2">
-                            <label for="dbmgr">DBMGR</label>
-                            <select class="form-control" id="dbmgr" name="dbmgr"  value="{{diag.dbmanager}}" >
-                            <option>Online </option>
-                            <option>Offline </option>
+                            
+                            <label for="dbmgr" id="label">DBMGR</label>
+                            <select class="form-control" id="dbmgr" name="dbmgr">
+                            <option value="Online" {% if diag.dbmanager == "Online" %} selected {%endif%}>Online </option>
+                            <option value="Offline" {% if diag.dbmanager == "Offline" %} selected {%endif%} >Offline </option>
                             </select>
                           </div>
                           <div class="form-group col-md-3">
-                            <label for="rsestate">RSE State</label>
+                            <label for="rsestate" id="label">RSE State</label>
                             <select class="form-control" id="rsestate" name="rse">
-                              <option>0 </option>
-                              <option>1 </option>
-                              <option>2 </option>
-                              <option>3 </option>
-                              <option>4</option>
-                              <option>5 </option>
-                              <option>6 </option>
-                              <option>7 </option>
-                              <option>8 </option>
+                              <option value="1" {% if diag.rse_state == "1" %} selected {%endif%}>1</option>
+                              <option value="2" {% if diag.rse_state == "2" %} selected {%endif%}>2</option>
+                              <option value="3" {% if diag.rse_state == "3" %} selected {%endif%}>3</option>
+                              <option value="4" {% if diag.rse_state == "4" %} selected {%endif%}>4</option>
+                              <option value="5" {% if diag.rse_state == "5" %} selected {%endif%}>5</option>
+                              <option value="6" {% if diag.rse_state == "6" %} selected {%endif%}>6</option>
+                              <option value="7" {% if diag.rse_state == "7" %} selected {%endif%}>7</option>
+                              <option value="8" {% if diag.rse_state == "8" %} selected {%endif%}>8</option>
                             </select>
                           </div>
                         </div>

@@ -1,7 +1,16 @@
 {%extends "homepagebase.html"%}
 
 {%block title%}Manual Analysis{%endblock%}
-
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        #label { 
+          color:gray; 
+          font-weight: bolder ;
+          
+          }
+    </style>
+{% endblock %}
 {%block content%}
 <div class="container">
     <div class="row justify-content-center">
@@ -10,63 +19,64 @@
                 <div class="card-body">
                     <form action="/manual-file" method="POST">
                         <div class="form-group">
-                          <label for="diagfilename">Diag File Name</label>
+                          <label for="diagfilename" id="label">Diag File Name</label>
                           <input type="text" class="form-control" id="diagfilename" placeholder="\\whqtransfer\WMSpace\deep_dive\ASDADDStores\" name="diags" required>
                         </div>
                         <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="build">Build Package</label>
+                            <label for="build" id="label">Build Package</label>
                             <input type="build" class="form-control" id="build" name="build">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="adk">ADK</label>
+                            <label for="adk" id="label">ADK</label>
                             <input type="adk" class="form-control" id="adk" name="adk">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="problemdate">Problem Date</label>
-                            <input type="datetime-local" id="meeting-time"name="time" value="yyyy-dd-mmTmm:ss" min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;">
+                            <label for="problemdate" id="label">Problem Date</label>
+                            <input type="datetime-local" id="meeting-time"name="time" value="yyyy-dd-mmTmm:ss" min="2000-01-07T00:00" max="2030-01-14T24:00" style="margin-top: 5px;" placeholder="DD-MM-YYYY">
+                
                         </div>
                         </div>
                         <div class="form-group">
-                          <label for="analysis">Analysis</label>
+                          <label for="analysis" id="label">Analysis</label>
                           <textarea class="form-control" id="analysis" rows="3" name="analysis" required></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                              <label for="jira">Jira</label>
+                              <label for="jira" id="label">Jira</label>
                               <input type="text" class="form-control" id="jira" name="jira">
                             </div>
                             <div class="form-group col-md-4">
-                              <label for="Category">Category</label>
+                              <label for="Category" id="label">Category</label>
                               <input type="text" class="form-control" id="category" name="category">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="deviceerror">Device Error</label>
+                                <label for="deviceerror" id="label">Device Error</label>
                                 <input type="text" class="form-control" id="deviceerror" name="deviceerror">
                             </div>
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-3">
-                            <label for="gsa">GSA</label>
+                            <label for="gsa" id="label">GSA</label>
                             <input type="text" class="form-control" id="gsa" name="gsa">
                           </div>
                           <div class="form-group col-md-2">
-                            <label for="hardware">Hardware Type</label>
+                            <label for="hardware" id="label">Hardware Type</label>
                             <input type="text" class="form-control" id="hardware" name="hardware">
                           </div>
                           <div class="form-group col-md-2">
-                              <label for="motherboard">Motherboard</label>
+                              <label for="motherboard" id="label">Motherboard</label>
                               <input type="text" class="form-control" id="motherboard" name="motherboard">
                           </div>
                           <div class="form-group col-md-2">
-                            <label for="dbmgr">DBMGR</label>
+                            <label for="dbmgr" id="label">DBMGR</label>
                             <select class="form-control" id="dbmgr" name="dbmgr">
                             <option>Online </option>
                             <option>Offline </option>
                             </select>
                           </div>
                           <div class="form-group col-md-3">
-                            <label for="rsestate">RSE State</label>
+                            <label for="rsestate" id="label">RSE State</label>
                             <select class="form-control" id="rsestate" name="rse">
                               <option>0 </option>
                               <option>1 </option>

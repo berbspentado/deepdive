@@ -28,7 +28,7 @@ class ManualAnalysis(db.Model):
     rse_state = db.Column(db.String(100),nullable=False)
     build_package = db.Column(db.String(200),nullable=False)
     adk = db.Column(db.String(100),nullable=False)
-    date_time = db.Column(db.DateTime,nullable=False)
+    date_time = db.Column(db.DateTime)
     analysis = db.Column(db.String(1000),nullable=False)
     jira = db.Column(db.String(200),nullable=False)
     category = db.Column(db.String(200),nullable=False)
