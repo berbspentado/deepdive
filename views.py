@@ -118,6 +118,14 @@ def delete(id):
     return redirect("/homepage")
 
 
+@app.route("/search_results",methods=["GET","POST"])
+def search():
+    diag = ManualAnalysis.query.all()
+
+
+    return render_template("search_results.html", diag=diag)    
+
+
 
 
 

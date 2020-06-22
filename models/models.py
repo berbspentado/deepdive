@@ -39,8 +39,8 @@ class ManualAnalysis(db.Model):
     dbmanager = db.Column(db.String(200),nullable=False)
     created_at = db.Column(db.DateTime,nullable=False,default=datetime.now)
     updated_at = db.Column(db.DateTime,nullable=False,default=datetime.now,onupdate=datetime.now)
-    
-    
+
+
 
 
 
@@ -54,4 +54,4 @@ def is_active(self):
     return True
 
 def is_authenticated(self):
-    return True   
+    return True

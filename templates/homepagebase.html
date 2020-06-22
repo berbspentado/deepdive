@@ -15,7 +15,18 @@
   <!-- Custom styles for this template -->
   <link href="{{url_for('static',filename='css/simple-sidebar.css')}}" rel="stylesheet">
 
+ 
+
   <script src="https://kit.fontawesome.com/f62f2e182f.js" crossorigin="anonymous"></script>
+
+ <!--
+<style type="text/css">
+  ul.list_menu li a:active {
+    color: #FF0000;
+    border: solid;
+    }
+</style>-->
+
   
   {%endblock%}
 </head>
@@ -25,21 +36,23 @@
   <div class="d-flex" id="wrapper">
     
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="border-right" id="sidebar-wrapper" style="background-color: #F5F5F5;">
       <div class="sidebar-heading">DeepDive Web</div>
-      <div class="list-group list-group-flush">
-        <a href="/homepage" class="list-group-item list-group-item-action bg-light">Mainfile Analysis</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">EOD Report</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">RSE Report</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Diags Assignment</a>
-        <a href="/manual-analysis" class="list-group-item list-group-item-action bg-light">Input Manual Analysis</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">SCO Metric Data</a>
+      <nav class="blog-nav" > 
+      <ul class="list-group list-group-flush" id="list_menu">
+        <li><a id="homepage" href="/homepage" class="list-group-item list-group-item-action" >Mainfile Analysis</a></li>
+        <li><a id="menu" href="#" class="list-group-item list-group-item-action">EOD Report</a></li>
+        <li><a id="menu" href="#" class="list-group-item list-group-item-action">RSE Report</a></li>
+        <li><a id="menu" href="#" class="list-group-item list-group-item-action">Diags Assignment</a></li>
+        <li><a id="manual-analysis" href="/manual-analysis" class="list-group-item list-group-item-action">Input Manual Analysis</a></li>
+        <li><a id="menu" href="#" class="list-group-item list-group-item-action">SCO Metric Data</a></li>
         <form action="/upload" method="POST" enctype=multipart/form-data>
        <!--- <a href="/upload" class="btn btn-info float-right" style="margin: 10px;" name="file">Upload File</a>--->
         <input type="file" class="btn btn-info" style="width: 240px;" name="file"></input>
         <button class="btn btn-info float-right" style="margin: 10px;">Upload</button>
         </form>
-      </div> 
+      </ul>
+      </nav> 
       
     </div>
     
@@ -48,29 +61,50 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle"><i class="fas fa-toggle-on"></i></button>
+      <nav class="navbar navbar-expand-lg border-bottom" style="background-color: #54B948;">
+        <button class="btn btn-primary" id="menu-toggle" style="size: 200px;"><i class="fas fa-bars"></i></button>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
           <span class="navbar-toggler-icon"></span>
         </button>
 
        
 
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size="70" style="margin-left: 300px;">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form class="form-inline" method="GET" action="/search_results">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size="70" name="search" style="margin-left: 10px;">
+          
+
+            <label for="filterby" style="padding-right: 10px;" ><span style="color: white;">Filter By</span></label>
+            <select class="form-control" id="filterby" name="filterby">
+            <option value="" >Analysis </option>
+            <option value=""  >Diag</option>
+            <option value=""  >Store </option>
+            <option value=""  >Build Package </option>
+            <option value=""  >ADK </option>
+            <option value=""  >Date </option>
+            <option value=""  >Jira </option>
+            <option value=""  >Category </option>
+            <option value=""  >Device Error </option>
+            <option value=""  >GSA </option>
+            <option value=""  >HW Type </option>
+            <option value=""  >Motherboard </option>
+            <option value=""  >RSE State </option>
+            </select>
+            
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: white;margin-left: 10px;background-color:  #308027;"><span>Search</span></button>
+          
         </form>
-        
+
+      
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#" style="color: white;"> Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
                 {{current_user.username}}                              
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -111,6 +145,19 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+
+    
+    
+//$(document).ready(function () {
+ // $("#{{request.endpoint}}").addClass("active"); })
+
+    $(function() {
+  $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+});
+
+	
+
+
   </script>
 </body>
 
