@@ -37,7 +37,7 @@
     
     <!-- Sidebar -->
     <div class="border-right" id="sidebar-wrapper" style="background-color: #F5F5F5;">
-      <div class="sidebar-heading">DeepDive Web</div>
+      <div class="sidebar-heading">Deep Dive</div>
       <nav class="blog-nav" > 
       <ul class="list-group list-group-flush" id="list_menu">
         <li><a id="homepage" href="/homepage" class="list-group-item list-group-item-action" >Mainfile Analysis</a></li>
@@ -62,7 +62,9 @@
     <div id="page-content-wrapper">
 
       <nav class="navbar navbar-expand-lg border-bottom" style="background-color: #54B948;">
-        <button class="btn btn-primary" id="menu-toggle" style="size: 200px;"><i class="fas fa-bars"></i></button>
+        
+        <button class="btn btn-primary" id="menu-toggle" style="size: 200px;margin-right: 10px;"><i class="fas fa-bars"></i></button>
+        <a href="/homepage"><img src="{{url_for('static', filename='pictures/logo.png')}}" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -75,19 +77,19 @@
 
             <label for="filterby" style="padding-right: 10px;" ><span style="color: white;">Filter By</span></label>
             <select class="form-control" id="filterby" name="filterby">
-            <option value="" >Analysis </option>
-            <option value=""  >Diag</option>
-            <option value=""  >Store </option>
-            <option value=""  >Build Package </option>
-            <option value=""  >ADK </option>
-            <option value=""  >Date </option>
-            <option value=""  >Jira </option>
-            <option value=""  >Category </option>
-            <option value=""  >Device Error </option>
-            <option value=""  >GSA </option>
-            <option value=""  >HW Type </option>
-            <option value=""  >Motherboard </option>
-            <option value=""  >RSE State </option>
+            <option>Analysis </option>
+            <option>Diag</option>
+            <option>Store </option>
+            <option>Build Package </option>
+            <option>ADK </option>
+            <option>Date </option>
+            <option>Jira </option>
+            <option>Category </option>
+            <option>Device Error </option>
+            <option>GSA </option>
+            <option>HW Type </option>
+            <option>Motherboard </option>
+            <option>RSE State </option>
             </select>
             
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: white;margin-left: 10px;background-color:  #308027;"><span>Search</span></button>
@@ -101,7 +103,7 @@
           
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#" style="color: white;"> Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/homepage" style="color: white;"> Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
@@ -147,9 +149,7 @@
     });
 
     
-    
-//$(document).ready(function () {
- // $("#{{request.endpoint}}").addClass("active"); })
+
 
     $(function() {
   $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');

@@ -121,11 +121,59 @@ def delete(id):
 @app.route("/search_results",methods=["GET","POST"])
 def search():
     search_result = request.form["search"]
-    result = ManualAnalysis.query.filter(ManualAnalysis.analysis.like('%' + search_result +'%')).all()
+    filter_result = request.form["filterby"]
+    
+    if filter_result == "Analysis":
+        result = ManualAnalysis.query.filter(ManualAnalysis.analysis.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+    
+    elif filter_result == "Diag":
+        result = ManualAnalysis.query.filter(ManualAnalysis.diagfile.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
 
-    return render_template('search_results.html',diags=result)
+    elif filter_result == "Store":
+        result = ManualAnalysis.query.filter(ManualAnalysis.diagfile.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
 
+    elif filter_result == "RSE State":
+        result = ManualAnalysis.query.filter(ManualAnalysis.rse_state.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Build Package":
+        result = ManualAnalysis.query.filter(ManualAnalysis.build_package.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "ADK":
+        result = ManualAnalysis.query.filter(ManualAnalysis.adk.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Date":
+        result = ManualAnalysis.query.filter(ManualAnalysis.date_time.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Jira":
+        result = ManualAnalysis.query.filter(ManualAnalysis.jira.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Category":
+        result = ManualAnalysis.query.filter(ManualAnalysis.category.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Device Error":
+        result = ManualAnalysis.query.filter(ManualAnalysis.device_error.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "GSA":
+        result = ManualAnalysis.query.filter(ManualAnalysis.gsa.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "HW Type":
+        result = ManualAnalysis.query.filter(ManualAnalysis.hwtype.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Motherboard":
+        result = ManualAnalysis.query.filter(ManualAnalysis.motherboard.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)                                    
        
 
 
