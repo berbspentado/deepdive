@@ -120,10 +120,17 @@ def delete(id):
 
 @app.route("/search_results",methods=["GET","POST"])
 def search():
-    diag = ManualAnalysis.query.all()
+    search_result = request.form["search"]
+    result = ManualAnalysis.query.filter(ManualAnalysis.analysis.like('%' + search_result +'%')).all()
+
+    return render_template('search_results.html',diags=result)
 
 
-    return render_template("search_results.html", diag=diag)    
+       
+
+
+
+       
 
 
 
