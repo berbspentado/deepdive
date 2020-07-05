@@ -1,4 +1,4 @@
-{% extends "homepagebase.html" %}
+{% extends "upload_homepagebase.html" %}
 {% set active_page = "content" %}
 
 {% block title %} Homepage {% endblock %}
@@ -42,9 +42,9 @@
     
     <tr>
     <td>{{diag["id"]}}</td>
-    <td>{{diag["diagfile"]}}</td>
+    <td>{{diag["diagfile_name"]}}</td>
     <td>{{diag["analysis"]}}</td>
-    <td>{{diag["jira"]}}</td>
+    <td>{{diag["associated_jira"]}}</td>
     <td>{{diag["category"]}}</td>
     <td>{{diag["rse_state"]}}</td>
     <td>
@@ -82,7 +82,7 @@
                             <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="build" id="label">Build Package</label><br>
-                                <span>{{diag.build_package}}</span>
+                                <span>{{diag.build}}</span>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="adk" id="label">ADK</label><br>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="problemdate" id="label">Problem Date</label><br>
-                                <span>{{diag.date_time}}</span>
+                                <span>{{diag.probdate}}</span>
                             </div>
                             </div>
                             <div class="form-group">
@@ -100,7 +100,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                   <label for="jira" id="label">Jira</label><br>
-                                  <span>{{diag.jira}}</span>
+                                  <span>{{diag.associated_jira}}</span>
                                 </div>
                                 <div class="form-group col-md-4">
                                   <label for="Category" id="label">Category</label><br>
@@ -114,11 +114,11 @@
                             <div class="form-row">
                               <div class="form-group col-md-3">
                                 <label for="gsa" id="label">GSA</label><br>
-                                <span>{{diag.gsa}}</span>
+                                <span>{{diag.gsa_version}}</span>
                               </div>
                               <div class="form-group col-md-2">
                                 <label for="hardware" id="label">HW Type</label><br>
-                                <span>{{diag.hwtype}}</span>
+                                <span>{{diag.hw_type}}</span>
                               </div>
                               <div class="form-group col-md-2">
                                   <label for="motherboard" id="label">Motherboard</label><br>
@@ -126,7 +126,7 @@
                               </div>
                               <div class="form-group col-md-2">
                                 <label for="dbmgr" id="label">DBMGR</label>
-                                <span>{{diag.dbmanager}}</span>
+                                <span>{{diag.dbmger}}</span>
                               </div>
                               <div class="form-group col-md-3">
                                 <label for="rsestate" id="label">RSE State</label><br>

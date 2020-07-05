@@ -1,4 +1,4 @@
-{% extends "homepagebase.html" %}
+{% extends "upload_homepagebase.html" %}
 {% set active_page = "content" %}
 
 {% block title %} Homepage {% endblock %}
@@ -23,10 +23,7 @@
     </style>
 {% endblock %}
 {% block content %}
-
-{{shapes}}
-
-<!--<table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
+<table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
   <thead>
     <tr id="header">
       <th scope="col">#</th>
@@ -41,24 +38,32 @@
     </tr>
   </thead>
   <tbody >
+    {%for diag in diags%}
     
-    {%for shape in shapes%}
     <tr>
-    <td></td>
-    <td>{{shape}}</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>{{diag["id"]}}</td>
+    <td>{{diag["diagfile_name"]}}</td>
+    <td>{{diag["analysis"]}}</td>
+    <td>{{diag["associated_jira"]}}</td>
+    <td>{{diag["category"]}}</td>
+    <td>{{diag["rse_state"]}}</td>
+    <td>
+      <button type="button" id="action" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myoutput{{diag.id}}"><i class="fas fa-eye" style="color: white;"></i></button>
+    </td>
+    <td>
+      <a type="button" id="action" class="btn btn-primary btn-sm" href="/upload_edit-analysis/{{diag.id}}"><i class="far fa-edit" style="color: white;"></i></a>
+    </td>
+    <td>
+      <a href="/upload_delete/{{diag.id}}" type="button" id="action" class="btn btn-primary btn-sm"><i class="far fa-trash-alt" style="color: white;"></i></a>
+     
+    </td>     
+      
     </tr>
-    {%endfor%}
     
+    {%endfor%}
   </tbody>
-</table>--->
+</table>
 
-
-
-<!----
 {%for diag in diags%}
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myoutput{{diag.id}}">
@@ -72,12 +77,12 @@
                         
                             <div class="form-group">
                               <label for="diagfilename" id="label">Diag File Name</label><br>
-                              <span>{{diag.diagfile}}</span>
+                              <span>{{diag.diagfile_name}}</span>
                             </div>
                             <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="build" id="label">Build Package</label><br>
-                                <span>{{diag.build_package}}</span>
+                                <span>{{diag.build}}</span>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="adk" id="label">ADK</label><br>
@@ -85,7 +90,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="problemdate" id="label">Problem Date</label><br>
-                                <span>{{diag.date_time}}</span>
+                                <span>{{diag.probdate}}</span>
                             </div>
                             </div>
                             <div class="form-group">
@@ -95,7 +100,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                   <label for="jira" id="label">Jira</label><br>
-                                  <span>{{diag.jira}}</span>
+                                  <span>{{diag.associated_jira}}</span>
                                 </div>
                                 <div class="form-group col-md-4">
                                   <label for="Category" id="label">Category</label><br>
@@ -109,11 +114,11 @@
                             <div class="form-row">
                               <div class="form-group col-md-3">
                                 <label for="gsa" id="label">GSA</label><br>
-                                <span>{{diag.gsa}}</span>
+                                <span>{{diag.gsa_version}}</span>
                               </div>
                               <div class="form-group col-md-2">
                                 <label for="hardware" id="label">HW Type</label><br>
-                                <span>{{diag.hwtype}}</span>
+                                <span>{{diag.hw_type}}</span>
                               </div>
                               <div class="form-group col-md-2">
                                   <label for="motherboard" id="label">Motherboard</label><br>
@@ -121,7 +126,7 @@
                               </div>
                               <div class="form-group col-md-2">
                                 <label for="dbmgr" id="label">DBMGR</label>
-                                <span>{{diag.dbmanager}}</span>
+                                <span>{{diag.dbmger}}</span>
                               </div>
                               <div class="form-group col-md-3">
                                 <label for="rsestate" id="label">RSE State</label><br>
@@ -138,9 +143,7 @@
     </div>
   </div>
 </div>
-
-
-{%endfor%}---->
+{%endfor%}
 
 {% endblock %}
 

@@ -3,7 +3,7 @@ from datetime import datetime
 import flask_excel as excel
 from .app import app
 from .database import db
-from .models.models import User,ManualAnalysis
+from .models.models import User,ManualAnalysis,UploadAnalysis
 from flask_login import LoginManager,login_user,login_required,current_user,logout_user
 from passlib.hash import sha256_crypt
 import pandas as pd
@@ -18,15 +18,11 @@ excel.init_excel(app)
 def load_user(id):
     return User.query.get(int(id))
 
+#-------------------------------- LOGIN / LOGOUT SESSION    
+
 @app.route("/")
 def home():
     return render_template("index.html")
-
-@app.route("/homepage")
-@login_required
-def homepage():
-    diags = ManualAnalysis.query.all()
-    return render_template("content.html",diags=diags)        
 
 @app.route("/login",methods=["POST","GET"])
 def login():
@@ -60,6 +56,14 @@ def register():
 
         return redirect("/")
     return render_template("register.html")
+    
+#--------------------------------MANUAL FILE
+
+@app.route("/homepage")
+@login_required
+def homepage():
+    diags = ManualAnalysis.query.all()
+    return render_template("content.html",diags=diags)    
 
 @app.route("/manual-analysis")
 def manual_analysis():
@@ -132,54 +136,203 @@ def search():
     if filter_result == "Analysis":
         result = ManualAnalysis.query.filter(ManualAnalysis.analysis.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
-    
+
+    elif filter_result == "Analysis":
+        result = UploadAnalysis.query.filter(UploadAnalysis.analysis.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)    
+
     elif filter_result == "Diag":
         result = ManualAnalysis.query.filter(ManualAnalysis.diagfile.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Diag":
+        result = UploadAnalysis.query.filter(UploadAnalysis.diagfile_name.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)     
 
     elif filter_result == "Store":
         result = ManualAnalysis.query.filter(ManualAnalysis.diagfile.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Store":
+        result = UploadAnalysis.query.filter(UploadAnalysis.diagfile_name.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)     
+
     elif filter_result == "RSE State":
         result = ManualAnalysis.query.filter(ManualAnalysis.rse_state.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "RSE State":
+        result = UploadAnalysis.query.filter(UploadAnalysis.rse_state.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
     elif filter_result == "Build Package":
         result = ManualAnalysis.query.filter(ManualAnalysis.build_package.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Build Package":
+        result = UploadAnalysis.query.filter(UploadAnalysis.build.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
     elif filter_result == "ADK":
         result = ManualAnalysis.query.filter(ManualAnalysis.adk.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "ADK":
+        result = UploadAnalysis.query.filter(UploadAnalysis.adk.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
     elif filter_result == "Date":
         result = ManualAnalysis.query.filter(ManualAnalysis.date_time.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Date":
+        result = UploadAnalysis.query.filter(UploadAnalysis.probdate.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)    
+
     elif filter_result == "Jira":
         result = ManualAnalysis.query.filter(ManualAnalysis.jira.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Jira":
+        result = UploadAnalysis.query.filter(UploadAnalysis.associated_jira.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)    
+
     elif filter_result == "Category":
         result = ManualAnalysis.query.filter(ManualAnalysis.category.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "Category":
+        result = UploadAnalysis.query.filter(UploadAnalysis.category.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
     elif filter_result == "Device Error":
         result = ManualAnalysis.query.filter(ManualAnalysis.device_error.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "Device Error":
+        result = UploadAnalysis.query.filter(UploadAnalysis.device_error.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
     elif filter_result == "GSA":
         result = ManualAnalysis.query.filter(ManualAnalysis.gsa.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)
+
+    elif filter_result == "GSA":
+        result = UploadAnalysis.query.filter(UploadAnalysis.gsa_version.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
     elif filter_result == "HW Type":
         result = ManualAnalysis.query.filter(ManualAnalysis.hwtype.like('%' + search_result +'%')).all()
         return render_template('search_results.html',diags=result)
 
+    elif filter_result == "HW Type":
+        result = UploadAnalysis.query.filter(UploadAnalysis.hw_type.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)    
+
     elif filter_result == "Motherboard":
         result = ManualAnalysis.query.filter(ManualAnalysis.motherboard.like('%' + search_result +'%')).all()
-        return render_template('search_results.html',diags=result)                                    
+        return render_template('search_results.html',diags=result) 
+
+    elif filter_result == "Motherboard":
+        result = UploadAnalysis.query.filter(UploadAnalysis.motherboard.like('%' + search_result +'%')).all()
+        return render_template('search_results.html',diags=result)     
+
+###---------------------------------------------UPLOAD FILE
+@app.route("/upload_analysis")
+@login_required
+def upload_mainfile():
+    diags = UploadAnalysis.query.all()
+    return render_template("upload.html",diags=diags)    
+
+
+@app.route("/upload_edit-analysis/<int:id>",methods=["GET","POST"])
+def upload_edit_analyze(id):
+    diag = UploadAnalysis.query.get(id)    
+    if request.method == "POST":
+        diag.diagfile_name= request.form["diags"]
+        diag.rse_state=request.form["rse"]
+        diag.build = request.form["build"]
+        diag.adk=request.form["adk"]
+        diag.analysis = request.form["analysis"]
+        diag.associated_jira=request.form["jira"]
+        diag.category=request.form["category"]
+        diag.device_error=request.form["deviceerror"]
+        diag.gsa_version = request.form["gsa"]
+        diag.hw_type = request.form["hardware"]
+        diag.motherboard=request.form["motherboard"]
+        diag.dbmger = request.form["dbmgr"]
+       
+        db.session.commit()
+
+        return redirect("/upload_analysis")
+
+    return render_template("upload_edit_manual_analysis.html",diag=diag)
+
+
+@app.route("/upload_delete/<int:id>",methods=["GET","POST"])
+def upload_delete(id):
+    diag = UploadAnalysis.query.get(id)
+    db.session.delete(diag)
+    db.session.commit()
+
+    return redirect("/upload_analysis")         
+
+@app.route("/upload_search_results",methods=["GET","POST"])
+def upload_search():
+    search_result = request.form["search"]
+    filter_result = request.form["filterby"]
+    
+    if filter_result == "Analysis":
+        result = UploadAnalysis.query.filter(UploadAnalysis.analysis.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)    
+
+    elif filter_result == "Diag":
+        result = UploadAnalysis.query.filter(UploadAnalysis.diagfile_name.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)     
+
+    elif filter_result == "Store":
+        result = UploadAnalysis.query.filter(UploadAnalysis.diagfile_name.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)     
+
+    elif filter_result == "RSE State":
+        result = UploadAnalysis.query.filter(UploadAnalysis.rse_state.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "Build Package":
+        result = UploadAnalysis.query.filter(UploadAnalysis.build.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "ADK":
+        result = UploadAnalysis.query.filter(UploadAnalysis.adk.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "Date":
+        result = UploadAnalysis.query.filter(UploadAnalysis.probdate.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)    
+
+    elif filter_result == "Jira":
+        result = UploadAnalysis.query.filter(UploadAnalysis.associated_jira.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)    
+
+    elif filter_result == "Category":
+        result = UploadAnalysis.query.filter(UploadAnalysis.category.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "Device Error":
+        result = UploadAnalysis.query.filter(UploadAnalysis.device_error.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "GSA":
+        result = UploadAnalysis.query.filter(UploadAnalysis.gsa_version.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
+
+    elif filter_result == "HW Type":
+        result = UploadAnalysis.query.filter(UploadAnalysis.hw_type.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)    
+
+    elif filter_result == "Motherboard":
+        result = UploadAnalysis.query.filter(UploadAnalysis.motherboard.like('%' + search_result +'%')).all()
+        return render_template('upload_search_results.html',diags=result)
        
 
 @app.route("/upload",methods=["GET","POST"])
