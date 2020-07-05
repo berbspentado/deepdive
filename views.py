@@ -6,11 +6,17 @@ from .database import db
 from .models.models import User,ManualAnalysis
 from flask_login import LoginManager,login_user,login_required,current_user,logout_user
 from passlib.hash import sha256_crypt
+import pandas as pd
+from sqlalchemy import create_engine
+import pymysql
 
 login_manager = LoginManager() #used to manage session login
 login_manager.init_app(app)
 excel.init_excel(app)
 
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route("/")
 def home():
@@ -176,28 +182,55 @@ def search():
         return render_template('search_results.html',diags=result)                                    
        
 
-
-
-       
-
-
-
-
-
-
-
-
 @app.route("/upload",methods=["GET","POST"])
 def upload_file():
     if request.method == "POST":
-        return jsonify({"result": request.get_array(field_name='file')})
+        df = pd.read_excel(request.files.get('file'))
+        sql_engine = create_engine('mysql+pymysql://root:@localhost:3306/deepdive')
+        dbConnection = sql_engine.connect()
 
-    return redirect("/homepage")   
+        try:
+            frame = df.to_sql("upload_analysis",dbConnection,if_exists='append',index=False)
+
+        except ValueError as vx:
+            print(vx)
+
+        except Exception as ex:
+            print(ex)         
+
+        finally:
+            dbConnection.close()
+
+        return redirect('/homepage')    
+    
 
 
+'''@app.route("/upload",methods=["GET","POST"])
+def upload_file():
+    if request.method == "POST":
+        #return jsonify({"result": request.get_array(field_name='file')})
+        
+        #df = pd.read_excel(request.files.get('file'),index_col=None,na_values=['NA'], usecols = "A",header=0)
+        df = pd.read_excel(request.files.get('file'))
+        return df.to_html()
+       
 
+        return render_template('upload.html',shapes = df)
+    return render_template('upload.html')  ''' 
+'''
+@app.route("/upload",methods=["GET","POST"])
+def upload_file():
 
+    sql_engine = create_engine('mysql+pymysql://root:@localhost:3306/deepdive')
+    
+    if request.method == "POST":
+        df = pd.read_excel(request.files.get('file'))
 
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+        return df.to_sql(
+            name='upload_analysis',
+            con=sql_engine,
+            index = True,
+            if_exists = 'append'
+
+        )   '''
+

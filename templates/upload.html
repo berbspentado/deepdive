@@ -1,0 +1,146 @@
+{% extends "homepagebase.html" %}
+{% set active_page = "content" %}
+
+{% block title %} Homepage {% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        #label { 
+          color:gray; 
+          font-weight: bolder ;
+          }
+
+        #action{
+          background-color:#54B948;
+          color: black;
+        }
+
+        #header{
+          background-color:#F5F5F5;
+          color: black;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+
+{{shapes}}
+
+<!--<table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
+  <thead>
+    <tr id="header">
+      <th scope="col">#</th>
+      <th scope="col">Diags<i class="fas fa-chevron-down" style="float:right;"></i> <i class="fas fa-chevron-up" style="float:right"></i></i></span> </th>
+      <th scope="col">Analysis</th>
+      <th scope="col">Associated Jira</th>
+      <th scope="col">Category</th>
+      <th scope="col">RSE State</th>
+      <th scope="col"></th>
+      <th scope="col">Action</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody >
+    
+    {%for shape in shapes%}
+    <tr>
+    <td></td>
+    <td>{{shape}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    </tr>
+    {%endfor%}
+    
+  </tbody>
+</table>--->
+
+
+
+<!----
+{%for diag in diags%}
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myoutput{{diag.id}}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12" style="padding: 5%;"> 
+                <div class="card">
+                    <div class="card-body">
+                        
+                            <div class="form-group">
+                              <label for="diagfilename" id="label">Diag File Name</label><br>
+                              <span>{{diag.diagfile}}</span>
+                            </div>
+                            <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="build" id="label">Build Package</label><br>
+                                <span>{{diag.build_package}}</span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="adk" id="label">ADK</label><br>
+                                <span>{{diag.adk}}</span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="problemdate" id="label">Problem Date</label><br>
+                                <span>{{diag.date_time}}</span>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="analysis" id="label">Analysis</label><br>
+                              <span>{{diag.analysis}}</span>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="jira" id="label">Jira</label><br>
+                                  <span>{{diag.jira}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="Category" id="label">Category</label><br>
+                                  <span>{{diag.category}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="deviceerror" id="label">Device Error</label><br>
+                                    <span>{{diag.device_error}}</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-3">
+                                <label for="gsa" id="label">GSA</label><br>
+                                <span>{{diag.gsa}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label for="hardware" id="label">HW Type</label><br>
+                                <span>{{diag.hwtype}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                  <label for="motherboard" id="label">Motherboard</label><br>
+                                <span>{{diag.motherboard}}</span>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label for="dbmgr" id="label">DBMGR</label>
+                                <span>{{diag.dbmanager}}</span>
+                              </div>
+                              <div class="form-group col-md-3">
+                                <label for="rsestate" id="label">RSE State</label><br>
+                                <span>{{diag.rse_state}}</span>
+                              </div>
+                            </div>
+                            
+                        
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>    
+    </div>
+  </div>
+</div>
+
+
+{%endfor%}---->
+
+{% endblock %}
+

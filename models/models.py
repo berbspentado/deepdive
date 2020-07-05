@@ -17,7 +17,6 @@ class User(db.Model,UserMixin): #inherit db.Model from SQLAlchemy and UserMixin 
     updated_at = db.Column(db.DateTime,nullable=False,default=datetime.now,onupdate=datetime.now)
     manual_analysis = db.relationship("ManualAnalysis",backref="users")
 
-
 class ManualAnalysis(db.Model):
 
     __tablename__ = 'manual_analysis'
@@ -41,13 +40,37 @@ class ManualAnalysis(db.Model):
     updated_at = db.Column(db.DateTime,nullable=False,default=datetime.now,onupdate=datetime.now)
 
 
+class UploadAnalysis(db.Model):
 
+    __tablename__ = 'upload_analysis'
 
-
-
-
-
-
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,ForeignKey('users.id'))
+    diagfile_name = db.Column(db.String(200),nullable=False)
+    adk = db.Column(db.String(100),nullable=False)
+    trace_check=  db.Column(db.String(100))
+    build= db.Column(db.String(200),nullable=False)
+    probdate  = db.Column(db.String(100),nullable=False)
+    probtime = db.Column(db.String(100),nullable=False)
+    trx_comp = db.Column(db.String(100))
+    analysis = db.Column(db.String(1000),nullable=False)
+    associated_jira = db.Column(db.String(200))
+    category = db.Column(db.String(200),nullable=False)
+    type_reboot = db.Column(db.String(100))
+    fix_build = db.Column(db.String(100))
+    detected = db.Column(db.String(100))
+    assigned = db.Column(db.String(100))
+    device_error = db.Column(db.String(200))
+    gsa_version	= db.Column(db.String(200),nullable=False)
+    full_mini = db.Column(db.String(100))
+    hw_type	= db.Column(db.String(200),nullable=False)
+    motherboard	= db.Column(db.String(200),nullable=False)
+    sub_category = db.Column(db.String(100))
+    rse_state = db.Column(db.String(100),nullable=False)
+    storenum = db.Column(db.String(100))
+    lanenum = db.Column(db.String(100))
+    dbmgr = db.Column(db.String(200),nullable=False)
+    
 
 
 def is_active(self):
