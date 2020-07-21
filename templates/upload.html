@@ -23,6 +23,14 @@
     </style>
 {% endblock %}
 {% block content %}
+<div class="" style="margin-top: 10px;margin-bottom: 10px;">
+  <form action="/upload" method="POST" enctype=multipart/form-data> 
+    <input type="submit" class="btn btn-outline-success float-right" style="width: 50;margin-bottom: 10px;" >
+    <input type="file" class="float-right" style="width: 240px;" name="file">
+  </form>
+</div>
+
+
 <table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
   <thead>
     <tr id="header">

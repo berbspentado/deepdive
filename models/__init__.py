@@ -1,7 +1,8 @@
-from .models import User,ManualAnalysis,UploadAnalysis
+from .models import User,ManualAnalysis,UploadAnalysis,RseFile
 
 __all__ = [
     "User",
     "ManualAnalysis",
-    "UploadAnalysis"
+    "UploadAnalysis",
+    "RseFile"
 ]

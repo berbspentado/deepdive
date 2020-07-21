@@ -1,0 +1,95 @@
+{% extends "homepagebase.html" %}
+{% set active_page = "content" %}
+
+{% block title %} Homepage {% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        #label { 
+          color:gray; 
+          font-weight: bolder ;
+          }
+
+        #action{
+          background-color:#54B948;
+          color: black;
+        }
+
+        #header{
+          background-color:#F5F5F5;
+          color: black;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+<div class="" style="margin-top: 10px;margin-bottom: 10px;">
+  <form action="/rse_report" method="POST" enctype=multipart/form-data> 
+    <input type="submit" class="btn btn-outline-success float-right" style="width: 50;margin-bottom: 10px;" >
+    <input type="file" class="float-right" style="width: 240px;" name="rse_file">
+  </form>
+</div>
+
+<div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
+  <input class="form-control mr-sm-2" type="search" placeholder="Date From " aria-label="Search" size="10" name="search">
+</div>
+
+<div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
+  <input class="form-control mr-sm-2" type="search" placeholder="Date To " aria-label="Search" size="10" name="search">
+</div>
+
+<div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
+  <input class="form-control mr-sm-2" type="search" placeholder="Build " aria-label="Search" size="10" name="search">
+</div>
+
+<div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
+  <input class="form-control mr-sm-2" type="search" placeholder="ADK " aria-label="Search" size="10" name="search">
+</div>
+
+<div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
+<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: white;background-color:  #308027;"><span>Generate Data</span></button>
+</div>
+
+<!-------------EOD REPORT--------------------->
+
+<table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
+  <thead>
+    <tr id="header">
+      <th scope="col">#</th>
+      <th scope="col">Store</th>
+      <th scope="col">Diag</th>
+      <th scope="col">Date</th>
+      <th scope="col">Associated Jira</th>
+      <th scope="col">Category</th>
+      <th scope="col">RSE State</th>
+      <th scope="col">Build</th>
+      <th scope="col">ADK</th>
+      <th scope="col">PS Package</th>
+      <th scope="col">Fix Version</th>
+    </tr>
+  </thead>
+  <tbody >
+    {%for diag in rse_diags%}
+    
+    <tr>
+    <td>{{diag["id"]}}</td>
+    <td>{{diag["store"]}}</td>
+    <td>{{diag["diagfile_name"]}}</td>
+    <td>{{diag["rse_date"]}}</td>
+    <td>{{diag["jira"]}}</td>
+    <td>{{diag["Category"]}}</td>
+    <td>{{diag["tender_state"]}}</td>
+    <td>{{diag["build"]}}</td>
+    <td>{{diag["adk"]}}</td>
+    <td>{{diag["ps_package"]}}</td>
+    <td>{{diag["fix_version"]}}</td>
+     
+      
+    </tr>
+    
+    {%endfor%}
+  </tbody>
+</table>
+
+
+{% endblock %}

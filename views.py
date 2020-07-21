@@ -3,7 +3,7 @@ from datetime import datetime
 import flask_excel as excel
 from .app import app
 from .database import db
-from .models.models import User,ManualAnalysis,UploadAnalysis
+from .models.models import User,ManualAnalysis,UploadAnalysis,RseFile
 from flask_login import LoginManager,login_user,login_required,current_user,logout_user
 from passlib.hash import sha256_crypt
 import pandas as pd
@@ -354,8 +354,53 @@ def upload_file():
         finally:
             dbConnection.close()
 
-        return redirect('/homepage')    
+        return redirect('/upload_analysis')    
+
+#----------------------------EOD REPORT
+
+@app.route("/eod_report")
+def eod_content():
+
+    return render_template('eod_report.html')
     
+
+
+
+
+
+
+#----------------------------RSE REPORT
+
+
+@app.route("/rse_report",methods=["GET","POST"])
+def rse_content():
+    rse_diags = RseFile.query.all()
+    if request.method == "POST":
+        df = pd.read_excel(request.files.get('rse_file'),sheet_name="RSE 3-8")
+        sql_engine = create_engine('mysql+pymysql://root:@localhost:3306/deepdive')
+        dbConnection = sql_engine.connect()
+
+        try:
+            frame = df.to_sql("rse_reports",dbConnection,if_exists='append',index=False)
+
+        except ValueError as vx:
+            print(vx)
+
+        except Exception as ex:
+            print(ex)         
+
+        finally:
+            dbConnection.close()
+
+        return redirect('/rse_report') 
+        
+       
+    return render_template("rse_report.html",rse_diags=rse_diags)
+       
+
+
+
+
 
 
 '''@app.route("/upload",methods=["GET","POST"])
