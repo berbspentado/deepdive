@@ -9,6 +9,10 @@ from passlib.hash import sha256_crypt
 import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
+import numpy as np 
+import matplotlib
+import matplotlib.pyplot as plt
+matplotlib.use('Agg')
 
 login_manager = LoginManager() #used to manage session login
 login_manager.init_app(app)
@@ -397,6 +401,52 @@ def rse_content():
        
     return render_template("rse_report.html",rse_diags=rse_diags)
        
+'''@app.route("/generate_data",methods=["POST","GET"])
+def generate_chart():
+
+    sql_engine = create_engine('mysql+pymysql://root:@localhost:3306/deepdive')
+
+    SQL_Query = pd.read_sql_query(
+    select
+    diagfile_name,
+    build,
+    jira,
+    Category,
+    adk
+    from rse_reports, sql_engine)
+    height = [3, 12, 5, 18, 45]
+    df = pd.DataFrame(SQL_Query, columns=['diagfile_name','build','jira','Category','adk'])
+    
+
+    return render_template("display_chart.html")'''
+
+
+@app.route("/generate_data",methods=["POST","GET"])
+def generate_chart():
+    data = [['E001', 'M', 34, 123, 'Normal', 350], 
+        ['E002', 'F', 40, 114, 'Overweight', 450], 
+        ['E003', 'F', 37, 135, 'Obesity', 169], 
+        ['E004', 'M', 30, 139, 'Underweight', 189], 
+        ['E005', 'F', 44, 117, 'Underweight', 183], 
+        ['E006', 'M', 36, 121, 'Normal', 80], 
+        ['E007', 'M', 32, 133, 'Obesity', 166], 
+        ['E008', 'F', 26, 140, 'Normal', 120], 
+        ['E009', 'M', 32, 133, 'Normal', 75], 
+        ['E010', 'M', 36, 133, 'Underweight', 40] ] 
+ 
+    df = pd.DataFrame(data, columns = ['EMPID', 'Gender',  
+                                    'Age', 'Sales', 
+                                    'BMI', 'Income'] ) 
+
+    df.hist()
+
+    plt.show()
+
+    return redirect("/generate_data")
+
+
+
+
 
 
 
@@ -414,8 +464,8 @@ def upload_file():
        
 
         return render_template('upload.html',shapes = df)
-    return render_template('upload.html')  ''' 
-'''
+    return render_template('upload.html')  
+
 @app.route("/upload",methods=["GET","POST"])
 def upload_file():
 

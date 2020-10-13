@@ -32,19 +32,19 @@
 
 <form action="/generate_data" method="POST" enctype=multipart/form-data> 
 <div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
-  <input class="form-control mr-sm-2" type="search" placeholder="Date From " aria-label="Search" size="10" name="search" required>
+  <input class="form-control mr-sm-2" type="search" placeholder="Date From " aria-label="Search" size="10" name="search">
 </div>
 
 <div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
-  <input class="form-control mr-sm-2" type="search" placeholder="Date To " aria-label="Search" size="10" name="search" required>
+  <input class="form-control mr-sm-2" type="search" placeholder="Date To " aria-label="Search" size="10" name="search">
 </div>
 
 <div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
-  <input class="form-control mr-sm-2" type="search" placeholder="Build " aria-label="Search" size="10" name="search" required>
+  <input class="form-control mr-sm-2" type="search" placeholder="Build " aria-label="Search" size="10" name="search">
 </div>
 
 <div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
-  <input class="form-control mr-sm-2" type="search" placeholder="ADK " aria-label="Search" size="10" name="search" required>
+  <input class="form-control mr-sm-2" type="search" placeholder="ADK " aria-label="Search" size="10" name="search">
 </div>
 
 <div class="float-left" style="margin-bottom: 10px;margin-right: 5px;">
@@ -53,42 +53,6 @@
 </form>
 <!-------------EOD REPORT--------------------->
 
-<table class="table table-light" style="font-size:x-small;margin-top: 10px;" >
-  <thead>
-    <tr id="header">
-      <th scope="col">#</th>
-      <th scope="col">Store</th>
-      <th scope="col">Diag</th>
-      <th scope="col">Date</th>
-      <th scope="col">Associated Jira</th>
-      <th scope="col">Category</th>
-      <th scope="col">RSE State</th>
-      <th scope="col">Build</th>
-      <th scope="col">ADK</th>
-      <th scope="col">PS Package</th>
-      <th scope="col">Fix Version</th>
-    </tr>
-  </thead>
-  <tbody >
-    
-    {%for diag in rse_diags%}
-    <tr>
-    <td>{{diag["id"]}}</td>
-    <td>{{diag["store"]}}</td>
-    <td>{{diag["diagfile_name"]}}</td>
-    <td>{{diag["rse_date"]}}</td>
-    <td>{{diag["jira"]}}</td>
-    <td>{{diag["Category"]}}</td>
-    <td>{{diag["tender_state"]}}</td>
-    <td>{{diag["build"]}}</td>
-    <td>{{diag["adk"]}}</td>
-    <td>{{diag["ps_package"]}}</td>
-    <td>{{diag["fix_version"]}}</td>
-    </tr>
-    {%endfor%}
-    
-  </tbody>
-</table>
-
+{{df}}
 
 {% endblock %}
